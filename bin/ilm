@@ -179,10 +179,10 @@ ilm "(([a-g]\[aeiou]):0.1)^2"   "{256}.(2)"  # any sound space can be powered
                     child.learn(lessons)
                     result_dict[trial][generation]=child.print_observables()
                     parent = child
-        return(result_dict,parent)
+        return(result_dict)
 
 
-    result_dict,parent=multidef (num_trials,options)
+    result_dict=multidef (num_trials,options)
     with Pool(processes = options.num_workers) as pool:
         processes = options.num_workers
         if processes > num_trials:
@@ -195,14 +195,14 @@ ilm "(([a-g]\[aeiou]):0.1)^2"   "{256}.(2)"  # any sound space can be powered
             else:
                 iter_jobs.append((num_trials//processes, options))
 
-        parent.print_parameters()
+        #parent.print_parameters()
         if options.seed is not None:
             print('# seed: {}'.format(options.seed))
         if options.amplitude is not None:
             print('# amplitude: {}'.format(options.amplitude))
         print('# bottleneck: {}\n# iterations: {}\n# trials: {}'.format(options.num_interactions,options.num_generations,num_trials))
         print('# ')
-        parent.print_observables_header()
+        #parent.print_observables_header()
         result=pool.starmap(result_dict,iter_jobs)         #(multidef,iter_jobs)
 
 
